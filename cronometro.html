@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cronômetro</title>
+
+	<style>
+
+        body{
+            background-color: rgba(145, 135, 125, 0.265);
+            height: 100%;
+            width: 100%;
+        }
+		#cronometro {
+            
+            position: flex;
+            width: 15%;
+			font-size: 25px;
+			font-weight: bold;
+			text-align: center;
+			margin: 2px auto;
+            border: 3px solid #000000;
+			background-color: #7f929c;
+			padding: 50px;
+            border-radius: 2%;
+		}
+
+		#botao {
+            
+            display: flex;
+            bottom: 500px;
+			margin: 10px auto;
+			width: 200px;
+			display: block;
+			text-align: center;
+			text-decoration: none;
+			font-weight: bold;
+			background-color: #9c3131;
+			color: #000000;
+			padding: 10px;
+            border: 3px solid;
+			border-radius: 25px;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="cronometro">00:00:00</div>
+	<a id="botao" href="#" onclick="startCronometro()">Iniciar</a>
+	
+
+	<script>
+		let time = 0;
+		let cronometro;
+		let botaoStart = document.querySelector('#botao');
+
+		function startCronometro() {
+			cronometro = setInterval(function() {
+				time++;
+				let minutos = Math.floor(time / 60);
+				let segundos = time % 60;
+
+				minutos = (minutos < 10) ? '0' + minutos : minutos;
+				segundos = (segundos < 10) ? '0' + segundos : segundos;
+
+				let display = minutos + ':' + segundos;
+				document.querySelector('#cronometro').innerHTML = display;
+			}, 1000);
+			botaoStart.innerHTML = 'Pausar';
+			botaoStart.onclick = pauseCronometro;
+		}
+
+		function pauseCronometro() {
+			clearInterval(cronometro);
+			botaoStart.innerHTML = 'Iniciar';
+			botaoStart.onclick = startCronometro;
+		}
+	</script>
+</body>
+</html>
